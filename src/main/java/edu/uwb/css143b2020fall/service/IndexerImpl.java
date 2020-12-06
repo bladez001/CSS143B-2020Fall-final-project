@@ -11,7 +11,11 @@ import java.util.Map;
 public class IndexerImpl implements Indexer {
     public Map<String, List<List<Integer>>> index(List<String> docs) {
         Map<String, List<List<Integer>>> indexes = new HashMap<>();
-        // add your code
+
+        for (int docsCounter = 0; docsCounter < docs.size(); docsCounter++) {
+            String splitDoc = docs.get(docsCounter);
+            String[] words = splitDoc.split("\\s+");
+        }
         return indexes;
     }
 }
