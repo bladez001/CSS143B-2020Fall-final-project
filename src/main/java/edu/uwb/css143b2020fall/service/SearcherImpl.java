@@ -15,7 +15,7 @@ public class SearcherImpl implements Searcher {
         List<List<Integer>> keyLocation = index.get(keyPhrase);
 
         if (wordSplit.length == 1) {
-            if (index.containsKey(wordSplit[0]) == true) {
+            if (index.containsKey(wordSplit[0])) {
                 for (int i = 0; i < keyLocation.size(); i++) {
                     if (keyLocation.get(i).size() == 0) {
                         continue;
@@ -26,7 +26,7 @@ public class SearcherImpl implements Searcher {
         }
 
         else {
-            if (index.containsKey(wordSplit[0]) == true) {
+            if (index.containsKey(wordSplit[0])) {
                 for (int i = 0; i < index.get(wordSplit[0]).size(); i++) {
                     List<List<Integer>> location = new ArrayList<>(wordSplit.length);
 
@@ -34,7 +34,7 @@ public class SearcherImpl implements Searcher {
                         location.add(index.get(input).get(i));
                     }
 
-                    if (checksIfInOrder(location) == true) {
+                    if (checksIfInOrder(location)) {
                         result.add(i);
                     }
                 }
@@ -59,7 +59,6 @@ public class SearcherImpl implements Searcher {
                 if (currPosition == prevPosition + 1) {
                     return helper(position, index + 1, prevPosition + 1);
                 }
-                continue;
             }
         }
         else {
