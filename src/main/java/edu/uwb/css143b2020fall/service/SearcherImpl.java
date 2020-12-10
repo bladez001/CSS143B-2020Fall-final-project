@@ -12,8 +12,60 @@ public class SearcherImpl implements Searcher {
         List<Integer> result = new ArrayList<>();
 
         String[] wordSplit = keyPhrase.split("\\s+");
+        List<List<Integer>> keyLocation = index.get(keyPhrase);
 
+        if (wordSplit.length == 1) {
+            if (index.containsKey(wordSplit[0]) == true) {
+                for (int i = 0; i < keyLocation.size(); i++) {
+                    if (keyLocation.get(i).size() == 0) {
+                        continue;
+                    }
+                    result.add(i);
+                }
+            }
+        }
+
+        else {
+            if (index.containsKey(wordSplit[0]) == true) {
+                for (int i = 0; i < index.get(wordSplit[0]).size(); i++) {
+                    List<List<Integer>> location = new ArrayList<>(wordSplit.length);
+
+                    for (String input : wordSplit) {
+                        location.add(index.get(input).get(i));
+                    }
+
+                    if (checksIfInOrder(location) == true) {
+                        result.add(i);
+                    }
+                }
+            }
+        }
         return result;
+    }
+
+    private boolean checksIfInOrder(List<List<Integer>> position) {
+        for (int i = 0; i < position.get(0).size(); i++) {
+            boolean helperResult = helper(position, 1, position.get(0).get(i));
+            if(helperResult) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean helper(List<List<Integer>> position, int index, int prevPosition) {
+        if (index < position.size()) {
+            for (Integer currPosition : position.get(index)) {
+                if (currPosition == prevPosition + 1) {
+                    return helper(position, index + 1, prevPosition + 1);
+                }
+                continue;
+            }
+        }
+        else {
+            return true;
+        }
+        return false;
     }
 }
         //comments from lecture
