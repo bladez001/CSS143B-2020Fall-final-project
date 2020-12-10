@@ -108,6 +108,72 @@ public class IntegrationTest {
         return testCases;
     }
 
+    @Test
+    public void testIntegration2() {
+        List<TestCase> cases = getMyTestCases();
+        for (TestCase testCase : cases) {
+            List<Integer> actual = searcher.search(
+                    testCase.target,
+                    indexer.index(testCase.documents)
+            );
+            assertEquals(testCase.expect, actual);
+        }
+    }
+
+    private List<TestCase> getMyTestCases() {
+        List<String> documents = Util.getMyDocumentsForIntTest();
+
+        List<TestCase> testCases = new ArrayList<>(Arrays.asList(
+                new TestCase(
+                        documents,
+                        "",
+                        Util.emptyResult()
+                ),
+                new TestCase(
+                        documents,
+                        "seems",
+                        new ArrayList<>(Arrays.asList(0, 3))
+                ),
+                new TestCase(
+                        documents,
+                        " seems ",
+                        Util.emptyResult()
+                ),
+                new TestCase(
+                        documents,
+                        "rain",
+                        new ArrayList<>(Arrays.asList(1))
+                ),
+                new TestCase(
+                        documents,
+                        "could a woodchuck chuck",
+                        new ArrayList<>(Arrays.asList(2))
+                ),
+                new TestCase(
+                        documents,
+                        "are we there",
+                        new ArrayList<>(Arrays.asList(3))
+                ),
+                new TestCase(
+                        documents,
+                        "java",
+                        Util.emptyResult()
+                ),
+                new TestCase(
+                documents,
+                "how much could a woodchuck chuck",
+                Util.emptyResult()
+                ),
+                new TestCase(
+                        documents,
+                        "a",
+                        new ArrayList<>(Arrays.asList(0,2))
+                )
+        ));
+
+        return testCases;
+    }
+
     private class TestCase {
         private List<String> documents;
         private String target;

@@ -127,8 +127,18 @@ public class Util {
         );
     }
 
+    public static List<String> getMyDocumentsForIntTest() {
+        return new ArrayList<>(
+                Arrays.asList(
+                        "there seems to be a problem sir",
+                        "the rain does not stop",
+                        "how much wood could a woodchuck chuck if a woodchuck could chuck wood",
+                        "are we there yet seems like it"
+                )
+        );
+    }
+
     public static List<Integer> emptyResult() {
         return new ArrayList<>();
     }
-
 }
